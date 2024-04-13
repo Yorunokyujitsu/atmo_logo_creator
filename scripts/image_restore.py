@@ -3,8 +3,7 @@ import re
 import numpy as np
 from PIL import Image
 
-def process_splash_image():
-    input_file_path = 'restore/boot_splash_screen_notext.inc'
+def process_splash_image(input_file_path, output_filename):
     if not os.path.exists(input_file_path):
         return
 
@@ -46,10 +45,9 @@ def process_splash_image():
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    splash_output_file = "splash.png"
-    splash_output_path = os.path.join(output_folder, splash_output_file)
+    splash_output_path = os.path.join(output_folder, output_filename)
     splash_image.save(splash_output_path)
-    print("Image restoration successful:", splash_output_file)
+    print("Image restoration successful:", output_filename)
 
 def process_fatal_image():
     input_file_path = 'restore/fatal_ams_logo.inc'
@@ -105,5 +103,6 @@ def process_fatal_image():
     fatal_image.save(fatal_output_path)
     print("Image restoration successful:", fatal_output_file)
 
-process_splash_image()
+process_splash_image('restore/boot_splash_screen_notext.inc', 'splash.png')
+process_splash_image('restore/boot_splash_screen_text.inc', 'splash_text.png')
 process_fatal_image()
